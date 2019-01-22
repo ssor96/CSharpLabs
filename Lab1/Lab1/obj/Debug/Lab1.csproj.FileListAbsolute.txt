@@ -1,6 +1,0 @@
-c:\users\администратор\source\repos\Lab1\Lab1\bin\Debug\Lab1.dll
-c:\users\администратор\source\repos\Lab1\Lab1\bin\Debug\Lab1.pdb
-c:\users\администратор\source\repos\Lab1\Lab1\obj\Debug\Lab1.csprojAssemblyReference.cache
-c:\users\администратор\source\repos\Lab1\Lab1\obj\Debug\Lab1.csproj.CoreCompileInputs.cache
-c:\users\администратор\source\repos\Lab1\Lab1\obj\Debug\Lab1.dll
-c:\users\администратор\source\repos\Lab1\Lab1\obj\Debug\Lab1.pdb
