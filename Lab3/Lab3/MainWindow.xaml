@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lab3"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Контакты" Height="450" Width="800">
 
     <StackPanel x:Name="root">
         <DockPanel>
             <ToolBar>
                 <Button Content="Добавить" Command="{Binding AddCommand}"/>
                 <Button Content="Удалить" Command="{Binding DeleteCommand}"/>
-                <Button Content="Изменить"/>
+                <Button Content="Изменить" Command="{Binding ChangeCommand}"/>
             </ToolBar>
             <Label Content="Поиск"/>
             <CheckBox Margin="0, 8, 0, 0" 
@@ -58,7 +58,7 @@
                           CanUserAddRows="False"
                           Grid.Column="1">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Имя" Binding="{Binding Name, Mode=TwoWay}"/>
+                    <DataGridTextColumn Header="Имя" Binding="{Binding Name}" IsReadOnly="True"/>
                     <DataGridTextColumn Header="День Рождения" Binding="{Binding Birthday}" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Телефон" Binding="{Binding PhoneNumber}" IsReadOnly="True"/>
                     <DataGridTextColumn Header="email" Binding="{Binding Email}" IsReadOnly="True"/>

@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Lab3
 {
-    class PersonViewModel
+    class PersonViewModel : INotifyPropertyChanged
     {
         Person _p;
+
 
         public Person Person
         {
@@ -35,7 +34,7 @@ namespace Lab3
             set
             {
                 _p.Name = value;
-                //OnPropertyChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -43,12 +42,19 @@ namespace Lab3
         {
             get
             {
-                return _p.Birthday.Value.Date.ToString("dd-MM-yyyy");
+                return _p.Birthday.HasValue ? _p.Birthday.Value.Date.ToString("dd-MM-yyyy") : "не указан";
             }
             set
             {
-                _p.Birthday = DateTime.Parse(value);
-                //OnPropertyChanged();
+                try
+                {
+                    _p.Birthday = DateTime.Parse(value);
+                }
+                catch (Exception)
+                {
+                    _p.Birthday = null;
+                }
+                OnPropertyChanged();
             }
         }
 
@@ -61,7 +67,7 @@ namespace Lab3
             set
             {
                 _p.Email = value;
-                //OnPropertyChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -74,7 +80,7 @@ namespace Lab3
             set
             {
                 _p.PhoneNumber = value;
-                //OnPropertyChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -87,8 +93,27 @@ namespace Lab3
             set
             {
                 _p.Comment = value;
-                //OnPropertyChanged();
+                OnPropertyChanged();
             }
         }
+
+        public bool IsEmpty
+        {
+            get
+            {
+                bool isEmpty = (Email == null || Email == "") &&
+                        (Name == null || Name == "") &&
+                        (PhoneNumber == null || PhoneNumber == "");
+
+                return isEmpty;
+            }
+        }
+
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

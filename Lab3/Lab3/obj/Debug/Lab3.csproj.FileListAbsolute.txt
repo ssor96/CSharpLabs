@@ -28,3 +28,7 @@ C:\Users\личные документы\Desktop\Lab3\Lab3\obj\Debug\Lab3.csproj
 C:\Users\личные документы\Desktop\Lab3\Lab3\obj\Debug\Lab3.csproj.CoreCompileInputs.cache
 C:\Users\личные документы\Desktop\Lab3\Lab3\obj\Debug\Lab3.exe
 C:\Users\личные документы\Desktop\Lab3\Lab3\obj\Debug\Lab3.pdb
+C:\Users\Администратор\source\repos\Lab3\Lab3\obj\Debug\AddPersonWindow.g.cs
+C:\Users\Администратор\source\repos\Lab3\Lab3\obj\Debug\AddPersonWindow.baml
+C:\Users\Администратор\source\repos\Lab3\Lab3\obj\Debug\ChangePersonData.g.cs
+C:\Users\Администратор\source\repos\Lab3\Lab3\obj\Debug\ChangePersonData.baml
