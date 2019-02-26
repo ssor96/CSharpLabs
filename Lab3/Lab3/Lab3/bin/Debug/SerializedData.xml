@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfPerson xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Person>
+    <Name>Вася</Name>
+    <Email>zzz.net</Email>
+    <PhoneNumber>3223322</PhoneNumber>
+    <Birthday>1996-01-23T00:00:00</Birthday>
+    <Comment>trololol</Comment>
+  </Person>
+  <Person>
+    <Name>Анфиса</Name>
+    <Email>zzz.net</Email>
+    <PhoneNumber>3223322</PhoneNumber>
+    <Birthday>1996-02-27T00:00:00</Birthday>
+    <Comment>Chelovek</Comment>
+  </Person>
+  <Person>
+    <Name>пес</Name>
+    <Email>вакепнрголорпа</Email>
+    <PhoneNumber>4356789</PhoneNumber>
+    <Birthday xsi:nil="true" />
+    <Comment>уквапроавпенр</Comment>
+  </Person>
+</ArrayOfPerson>

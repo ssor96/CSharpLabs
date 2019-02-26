@@ -3,8 +3,15 @@ using System.ComponentModel;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Reactive.Concurrency;
+using System.Reactive.Linq;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Collections.Generic;
+using System.Collections;
+using System.Windows.Controls;
+using System.Diagnostics;
+using System.Threading;
 
 namespace Lab3
 {
@@ -15,6 +22,16 @@ namespace Lab3
         ObservableCollection<PersonViewModel> _personViewModels = new ObservableCollection<PersonViewModel>();
 
         CollectionViewSource _cvs = new CollectionViewSource();
+
+        ObservableCollection<PersonViewModel> _searchResults = new ObservableCollection<PersonViewModel>();
+
+        public IEnumerable SearchResults
+        {
+            get
+            {
+                return _searchResults;
+            }
+        }
 
         public string Alphabet { get; } = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
 
@@ -36,6 +53,7 @@ namespace Lab3
             foreach(Person p in _persons)
             {
                 _personViewModels.Add(new PersonViewModel(p));
+                _searchResults.Add(new PersonViewModel(p));
             }
 
             _persons.CollectionChanged += _persons_CollectionChanged;
@@ -47,6 +65,37 @@ namespace Lab3
             AddCommand = new DelegateCommand(Add);
             DeleteCommand = new DelegateCommand(Delete);
             ChangeCommand = new DelegateCommand(Change);
+
+            //var textchanges = Observable.FromEventPattern<TextChangedEventHandler, TextChangedEventArgs>(
+            //    h => TextBoxSearch.TextChanged += h,
+            //    h => TextBoxSearch.TextChanged -= h
+            //    ).Select(x => ((TextBox)x.Sender).Text);
+
+            //var processedTextChanges = textchanges.Throttle(TimeSpan.FromMilliseconds(300)).Where(text => !string.IsNullOrWhiteSpace(text) && text.Length >= 3).DistinctUntilChanged();
+
+            //processedTextChanges.Select(Search).Switch().ObserveOn(DispatcherScheduler.Current).Subscribe(OnSearchResult);
+        }
+
+        //private void OnSearchResult(List<PersonViewModel> list)
+        //{
+        //    Trace.WriteLine("OnSearchResult: " + Thread.CurrentThread.ManagedThreadId);
+        //    _searchResults.Clear();
+        //    list.ForEach(_searchResults.Add);
+        //}
+
+        //public IObservable<List<PersonViewModel>> Search(string filter)
+        //{
+        //    Trace.WriteLine(Thread.CurrentThread.ManagedThreadId + ": search " + filter);
+        //    //if (filter.Length <= 3) 
+        //    //    Thread.Sleep(5000);
+        //    var filteredList = _personViewModels.Where(x => x.Name.ToLower().Contains(filter.ToLower())).ToList();
+        //    Trace.WriteLine("Search end " + filter);
+        //    return Observable.Return(filteredList);
+        //}
+
+        ~MainViewModel()
+        {
+            _persons.Dump();
         }
 
         public PersonViewModel SelectedPerson
@@ -87,6 +136,7 @@ namespace Lab3
             }
             set
             {
+                Console.WriteLine("!!!");
                 _nearestBirthdays = value;
                 _cvs.View.Refresh();
             }
@@ -99,6 +149,11 @@ namespace Lab3
             {
                 if (p.Birthday != null)
                 {
+                    if (p.Birthday[0] < '0' || p.Birthday[0] > '9')
+                    {
+                        e.Accepted = false;
+                        return;
+                    }
                     var now = DateTime.Now.DayOfYear;
                     var date = DateTime.Parse(p.Birthday).DayOfYear;
                     var weekLater = now + 7;
@@ -141,6 +196,7 @@ namespace Lab3
         {
             RaisePropertyChanged("SelectedPerson");
             DeleteCommand.CanExecuteProperty = (SelectedPerson != null);
+            ChangeCommand.CanExecuteProperty = (SelectedPerson != null);
         }
 
         void Add()
@@ -192,3 +248,42 @@ namespace Lab3
         public ICommand ChangeStartSymbCommand { get { return new DelegateCommandWithArgs<char>(ChangeStartSymb); } }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
